@@ -1,103 +1,113 @@
-import { MMKV } from "react-native-mmkv"
+import { MMKV } from "react-native-mmkv";
 
-const storage = new MMKV()
-
-import { log } from "/utils/log"
+const storage = new MMKV();
 
 class Storage {
   static getString(key: string) {
     try {
-      const value: string | undefined = storage.getString(key)
-      log("Get Value", key, "Successes!", value)
+      const value: string | undefined = storage.getString(key);
+      console.log("Get Value", key, "Successes!", value);
 
-      return value
+      return value;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
   static getNumber(key: string) {
     try {
-      const value: number = storage.getNumber(key)
-      log("Get Value", key, "Successes!", value)
+      const value = storage.getNumber(key);
+      console.log("Get Value", key, "Successes!", value);
 
-      return value
+      return value;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
   static getBoolean(key: string) {
     try {
-      const value: boolean = storage.getBoolean(key)
-      log("Get Value", key, "Successes!", value)
+      const value = storage.getBoolean(key);
+      console.log("Get Value", key, "Successes!", value);
 
-      return value
+      return value;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
   static getAllKeys() {
     try {
-      const value: Array<string> = storage.getAllKeys()
-      log("Get All Keys Successes!", value)
+      const value: Array<string> = storage.getAllKeys();
+      console.log("Get All Keys Successes!", value);
 
-      return value
+      return value;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
   static set(key: string, value: boolean | string | number) {
     try {
-      log("Set Successes!", value)
+      console.log("Set Successes!", value);
 
-      return storage.set(key, value)
+      return storage.set(key, value);
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
   static getObject(key: string) {
     try {
-      const value: string | undefined = storage.getString(key)
-      const parseToObject = JSON.parse(value!)
+      const value: string | undefined = storage.getString(key);
+      if (value) {
+        const parseToObject = JSON.parse(value);
 
-      return parseToObject
+        return parseToObject;
+      }
+      return value;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
-  static setObject(key: string, value?: { [key: string]: string }) {
+  static setObject(key: string, value?: { [key: string]: string } | Array<any>) {
     try {
-      const convertToString = JSON.stringify(value)
+      const convertToString = JSON.stringify(value);
 
-      return storage.set(key, convertToString)
+      return storage.set(key, convertToString);
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
+  static setBoolean(key: string, value: boolean) {
+    try {
+
+      return storage.set(key, value);
+    } catch (error) {
+      throw error;
+    }
+  }
+  
   static delete(key: string) {
     try {
-      log("Delete Successes!", key)
+      console.log("Delete Successes!", key);
 
-      return storage.delete(key)
+      return storage.delete(key);
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
   static async clearAll() {
     try {
-      storage.clearAll()
-      log("ClearAll Successes!")
+      storage.clearAll();
+      console.log("ClearAll Successes!");
     } catch (e) {
-      log("clearAllError:", e)
+      console.log("clearAllError:", e);
     }
   }
 }
 
-export default Storage
+export default Storage;
